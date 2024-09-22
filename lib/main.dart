@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_miniplay/service/ws_service.dart';
 import 'package:netplayer_miniplay/variables/style_var.dart';
+import 'package:netplayer_miniplay/views/main_view.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 
@@ -38,7 +37,8 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> with WindowListener {
 
   final StyleVar s=Get.put(StyleVar());
-  final WsService ws=WsService();
+  
+  late WsService ws;
   bool alwaysOnTop=false;
   bool hoverPin=false;
   bool hoverLyric=false;
@@ -54,6 +54,8 @@ class _MainAppState extends State<MainApp> with WindowListener {
 
   Future<void> init() async {
     await windowManager.setResizable(false);
+    // TODO 添加获取ws端口
+    ws=WsService("9098");
     // await windowManager.setAsFrameless();
     // await windowManager.setHasShadow(false);
   }
@@ -104,7 +106,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
                                         windowManager.setHasShadow(s.showShadow.value);
                                       }
                                     ),
-                                    SizedBox(width: 10,),
+                                    const SizedBox(width: 10,),
                                     GestureDetector(
                                       onTap: () async {
                                         s.showShadow.value=!s.showShadow.value;
@@ -113,7 +115,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
                                         }
                                         windowManager.setHasShadow(s.showShadow.value);
                                       },
-                                      child: MouseRegion(
+                                      child: const MouseRegion(
                                         cursor: SystemMouseCursors.click,
                                         child: Text('显示窗口阴影')
                                       )
@@ -160,11 +162,11 @@ class _MainAppState extends State<MainApp> with WindowListener {
                             });
                           },
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             height: 25,
                             width: 40,
                             decoration: BoxDecoration(
-                              color: hoverOpacity ? Color.fromARGB(255, 240, 240, 240) : Color.fromARGB(0, 230, 230, 230)
+                              color: hoverOpacity ? const Color.fromARGB(255, 240, 240, 240) : const Color.fromARGB(0, 230, 230, 230)
                             ),
                             child: Center(
                               child: FaIcon(
@@ -196,11 +198,11 @@ class _MainAppState extends State<MainApp> with WindowListener {
                             });
                           },
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             height: 25,
                             width: 40,
                             decoration: BoxDecoration(
-                              color: hoverPin ? Color.fromARGB(255, 240, 240, 240) : Color.fromARGB(0, 230, 230, 230)
+                              color: hoverPin ? const Color.fromARGB(255, 240, 240, 240) : const Color.fromARGB(0, 230, 230, 230)
                             ),
                             child: Center(
                               child: FaIcon(
@@ -229,9 +231,9 @@ class _MainAppState extends State<MainApp> with WindowListener {
                             });
                           },
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             decoration: BoxDecoration(
-                              color: hoverLyric ? Color.fromARGB(255, 240, 240, 240) : Color.fromARGB(0, 230, 230, 230)
+                              color: hoverLyric ? const Color.fromARGB(255, 240, 240, 240) : const Color.fromARGB(0, 230, 230, 230)
                             ),
                             height: 25,
                             width: 40,
@@ -247,6 +249,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
                       ),
                       GestureDetector(
                         onTap: (){
+                          windowManager.close();
                           // TODO 关闭
                         },
                         child: MouseRegion(
@@ -262,9 +265,9 @@ class _MainAppState extends State<MainApp> with WindowListener {
                             });
                           },
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             decoration: BoxDecoration(
-                              color: hoverClose ? Color.fromARGB(255, 210, 0, 0) : Color.fromARGB(0, 230, 230, 230)
+                              color: hoverClose ? const Color.fromARGB(255, 210, 0, 0) : const Color.fromARGB(0, 230, 230, 230)
                             ),
                             height: 25,
                             width: 40,
@@ -280,7 +283,8 @@ class _MainAppState extends State<MainApp> with WindowListener {
                       ),
                     ],
                   ),
-                )
+                ),
+                const Expanded(child: MainView())
               ],
             )
           ),
