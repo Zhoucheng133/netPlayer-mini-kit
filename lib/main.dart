@@ -38,7 +38,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
 
   final StyleVar s=Get.put(StyleVar());
   
-  late WsService ws;
+  WsService ws=WsService();
   bool alwaysOnTop=false;
   bool hoverPin=false;
   bool hoverLyric=false;
@@ -54,8 +54,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
 
   Future<void> init() async {
     await windowManager.setResizable(false);
-    // TODO 添加获取ws端口
-    ws=WsService("9098");
+    ws.init("9098");
     // await windowManager.setAsFrameless();
     // await windowManager.setHasShadow(false);
   }
@@ -284,7 +283,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
                     ],
                   ),
                 ),
-                const Expanded(child: MainView())
+                Expanded(child: MainView(ws: ws,))
               ],
             )
           ),

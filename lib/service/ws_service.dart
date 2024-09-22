@@ -18,11 +18,21 @@ class WsService{
       d.line.value=msg['line'];
       d.lyric.value=msg['fullLyric'];
       d.title.value=msg['title'];
+      d.isPlay.value=msg['isPlay'];
     });
   }
 
-  WsService(String port){
-    init(port);
+  toggle(){
+    socket.add(d.isPlay.value ? 'pause': 'play');
+    d.isPlay.value=!d.isPlay.value;
+  }
+
+  skip(){
+    socket.add("skip");
+  }
+
+  forw(){
+    socket.add('forw');
   }
   
 }

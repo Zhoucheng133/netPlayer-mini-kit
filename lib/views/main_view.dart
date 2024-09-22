@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_miniplay/service/ws_service.dart';
 import 'package:netplayer_miniplay/variables/color_var.dart';
 import 'package:netplayer_miniplay/variables/data_var.dart';
 
 class MainView extends StatefulWidget {
-  const MainView({super.key});
+
+  final WsService ws;
+
+  const MainView({super.key, required this.ws});
 
   @override
   State<MainView> createState() => _MainViewState();
@@ -77,7 +81,7 @@ class _MainViewState extends State<MainView> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    // TODO 上一首
+                    widget.ws.forw();
                   },
                   child: Tooltip(
                     waitDuration: const Duration(seconds: 1),
@@ -108,8 +112,7 @@ class _MainViewState extends State<MainView> {
                 const SizedBox(width: 15,),
                 GestureDetector(
                   onTap: (){
-                    // operations.toggleSong();
-                    // TODO 播放&暂停
+                    widget.ws.toggle();
                   },
                   child: Tooltip(
                     waitDuration: const Duration(seconds: 1),
@@ -152,7 +155,7 @@ class _MainViewState extends State<MainView> {
                 const SizedBox(width: 15,),
                 GestureDetector(
                   onTap: (){
-                    // TODO 下一首
+                    widget.ws.skip();
                   },
                   child: Tooltip(
                     waitDuration: const Duration(seconds: 1),
