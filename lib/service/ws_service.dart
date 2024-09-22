@@ -1,17 +1,28 @@
+import 'dart:convert';
 import 'dart:io';
+
+import 'package:get/get.dart';
+import 'package:netplayer_miniplay/variables/data_var.dart';
 
 class WsService{
   late WebSocket socket;
 
-  Future<void> init() async {
-    socket = await WebSocket.connect('ws://127.0.0.1:9098');
+  final d=Get.put(DataVar());
+
+  Future<void> init(String port) async {
+    socket = await WebSocket.connect('ws://127.0.0.1:$port');
     socket.listen((message) {
-      // print('Received: $message');
+      final msg=json.decode(message);
+      d.artist.value=msg['artist'];
+      d.cover.value=msg['cover'];
+      d.line.value=msg['line'];
+      d.lyric.value=msg['fullLyric'];
+      d.title.value=msg['title'];
     });
   }
 
-  WsService(){
-    init();
+  WsService(String port){
+    init(port);
   }
   
 }
