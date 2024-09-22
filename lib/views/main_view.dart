@@ -27,11 +27,11 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-      child: Obx(()=>
-        Column(
-          children: [
-            Row(
-              children: [
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Obx(()=>
                 d.cover.value.isNotEmpty ? Container(
                   width: 60,
                   height: 60,
@@ -45,9 +45,11 @@ class _MainViewState extends State<MainView> {
                   width: 60,
                   height: 60,
                 ),
-                const SizedBox(width: 10,),
-                Expanded(
-                  child: Column(
+              ),
+              const SizedBox(width: 10,),
+              Expanded(
+                child: Obx(()=>
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -73,121 +75,121 @@ class _MainViewState extends State<MainView> {
                     ],
                   ),
                 )
-              ],
-            ),
-            const SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    widget.ws.forw();
-                  },
-                  child: Tooltip(
-                    waitDuration: const Duration(seconds: 1),
-                    message: 'skipPre'.tr,
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      onEnter: (_){
-                        setState(() {
-                          hoverPre=true;
-                        });
-                      },
-                      onExit: (_){
-                        setState(() {
-                          hoverPre=false;
-                        });
-                      },
-                      child: TweenAnimationBuilder(
-                        tween: ColorTween(end: hoverPre ? c.color6 : c.color5), 
-                        duration: const Duration(milliseconds: 200),
-                        builder: (_, value, __) => Icon(
-                          Icons.skip_previous_rounded,
-                          color: value,
-                        ),
-                      )
-                    ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: (){
+                  widget.ws.forw();
+                },
+                child: Tooltip(
+                  waitDuration: const Duration(seconds: 1),
+                  message: 'skipPre'.tr,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_){
+                      setState(() {
+                        hoverPre=true;
+                      });
+                    },
+                    onExit: (_){
+                      setState(() {
+                        hoverPre=false;
+                      });
+                    },
+                    child: TweenAnimationBuilder(
+                      tween: ColorTween(end: hoverPre ? c.color6 : c.color5), 
+                      duration: const Duration(milliseconds: 200),
+                      builder: (_, value, __) => Icon(
+                        Icons.skip_previous_rounded,
+                        color: value,
+                      ),
+                    )
                   ),
                 ),
-                const SizedBox(width: 15,),
-                GestureDetector(
-                  onTap: (){
-                    widget.ws.toggle();
-                  },
-                  child: Tooltip(
-                    waitDuration: const Duration(seconds: 1),
-                    message: 'play/pause'.tr,
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      onEnter: (_){
-                        setState(() {
-                          hoverPause=true;
-                        });
-                      },
-                      onExit: (_){
-                        setState(() {
-                          hoverPause=false;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        height: 34,
-                        width: 34,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(17),
-                          color: hoverPause ? c.color6 : c.color5
-                        ),
-                        duration: const Duration(milliseconds: 200),
-                        child: Center(
-                          child: Obx(()=>
-                            d.isPlay.value ? const Icon(
-                              Icons.pause_rounded,
-                              color: Colors.white,
-                            ): const Icon(
-                              Icons.play_arrow_rounded,
-                              color: Colors.white,
-                            )
+              ),
+              const SizedBox(width: 15,),
+              GestureDetector(
+                onTap: (){
+                  widget.ws.toggle();
+                },
+                child: Tooltip(
+                  waitDuration: const Duration(seconds: 1),
+                  message: 'play/pause'.tr,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_){
+                      setState(() {
+                        hoverPause=true;
+                      });
+                    },
+                    onExit: (_){
+                      setState(() {
+                        hoverPause=false;
+                      });
+                    },
+                    child: AnimatedContainer(
+                      height: 34,
+                      width: 34,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(17),
+                        color: hoverPause ? c.color6 : c.color5
+                      ),
+                      duration: const Duration(milliseconds: 200),
+                      child: Center(
+                        child: Obx(()=>
+                          d.isPlay.value ? const Icon(
+                            Icons.pause_rounded,
+                            color: Colors.white,
+                          ): const Icon(
+                            Icons.play_arrow_rounded,
+                            color: Colors.white,
                           )
-                        ),
+                        )
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 15,),
-                GestureDetector(
-                  onTap: (){
-                    widget.ws.skip();
-                  },
-                  child: Tooltip(
-                    waitDuration: const Duration(seconds: 1),
-                    message: 'skipNext'.tr,
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      onEnter: (_){
-                        setState(() {
-                          hoverSkip=true;
-                        });
-                      },
-                      onExit: (_){
-                        setState(() {
-                          hoverSkip=false;
-                        });
-                      },
-                      child: TweenAnimationBuilder(
-                        tween: ColorTween(end: hoverSkip ? c.color6 : c.color5), 
-                        duration: const Duration(milliseconds: 200),
-                        builder: (_, value, __) => Icon(
-                          Icons.skip_next_rounded,
-                          color: value,
-                        ),
-                      )
-                    ),
+              ),
+              const SizedBox(width: 15,),
+              GestureDetector(
+                onTap: (){
+                  widget.ws.skip();
+                },
+                child: Tooltip(
+                  waitDuration: const Duration(seconds: 1),
+                  message: 'skipNext'.tr,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_){
+                      setState(() {
+                        hoverSkip=true;
+                      });
+                    },
+                    onExit: (_){
+                      setState(() {
+                        hoverSkip=false;
+                      });
+                    },
+                    child: TweenAnimationBuilder(
+                      tween: ColorTween(end: hoverSkip ? c.color6 : c.color5), 
+                      duration: const Duration(milliseconds: 200),
+                      builder: (_, value, __) => Icon(
+                        Icons.skip_next_rounded,
+                        color: value,
+                      ),
+                    )
                   ),
                 ),
-              ],
-            )
-          ],
-        )
-      ),
+              ),
+            ],
+          )
+        ],
+      )
     );
   }
 }
