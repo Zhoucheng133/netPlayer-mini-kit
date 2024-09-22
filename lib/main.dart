@@ -55,8 +55,6 @@ class _MainAppState extends State<MainApp> with WindowListener {
   Future<void> init() async {
     await windowManager.setResizable(false);
     ws.init("9098");
-    // await windowManager.setAsFrameless();
-    // await windowManager.setHasShadow(false);
   }
 
   @override
@@ -72,14 +70,14 @@ class _MainAppState extends State<MainApp> with WindowListener {
       theme: ThemeData(
         textTheme: GoogleFonts.notoSansScTextTheme(),
       ),
-      home: Obx(()=>
+      home:  Obx(()=>
         Scaffold(
           backgroundColor: Color.fromARGB(s.opacity.value, 248, 249, 255),
-          body: DragToMoveArea(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 25,
+          body: Column(
+            children: [
+              SizedBox(
+                height: 25,
+                child: DragToMoveArea(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -283,9 +281,9 @@ class _MainAppState extends State<MainApp> with WindowListener {
                     ],
                   ),
                 ),
-                Expanded(child: MainView(ws: ws,))
-              ],
-            )
+              ),
+              Expanded(child: MainView(ws: ws,))
+            ],
           ),
         ),
       )
