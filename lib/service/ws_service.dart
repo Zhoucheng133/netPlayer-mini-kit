@@ -11,6 +11,10 @@ class WsService{
 
   Future<void> init(String port) async {
     socket = await WebSocket.connect('ws://127.0.0.1:$port');
+    final command=json.encode({
+      "command": 'get',
+    });
+    socket.add(command);
     socket.listen((message) {
       final msg=json.decode(message);
       d.artist.value=msg['artist'];
@@ -23,16 +27,25 @@ class WsService{
   }
 
   toggle(){
-    socket.add(d.isPlay.value ? 'pause': 'play');
+    final command=json.encode({
+      "command": d.isPlay.value ? 'pause': 'play'
+    });
+    socket.add(command);
     d.isPlay.value=!d.isPlay.value;
   }
 
   skip(){
-    socket.add("skip");
+    final command=json.encode({
+      "command": "skip"
+    });
+    socket.add(command);
   }
 
   forw(){
-    socket.add('forw');
+    final command=json.encode({
+      "command": "forw"
+    });
+    socket.add(command);
   }
   
 }
