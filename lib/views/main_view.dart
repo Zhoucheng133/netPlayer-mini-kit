@@ -345,40 +345,37 @@ class _MainViewState extends State<MainView> {
                           ),
                         )
                       ],
-                      child: Container(
-                        color: c.color1,
-                        child: Tooltip(
-                          waitDuration: const Duration(seconds: 1),
-                          message: 'playMode'.tr,
-                          child: MouseRegion(
-                            onEnter: (_){
-                              setState(() {
-                                hoverMode=true;
-                              });
-                            },
-                            onExit: (_){
-                              setState(() {
-                                hoverMode=false;
-                              });
-                            },
-                            child: TweenAnimationBuilder(
-                              tween: ColorTween(end: hoverMode ? c.color6 : c.color5), 
-                              duration: const Duration(milliseconds: 200), 
-                              builder: (_, value, __)=>Obx(()=>
-                                d.playMode.value=='list' ?  Icon(
-                                  Icons.repeat_rounded,
-                                  size: 18,
-                                  color: value,
-                                ) : d.playMode.value=='repeat' ?
-                                Icon(
-                                  Icons.repeat_one_rounded,
-                                  size: 18,
-                                  color: value
-                                ) : Icon(
-                                  Icons.shuffle_rounded,
-                                  size: 18,
-                                  color: value,
-                                ),
+                      child: Tooltip(
+                        waitDuration: const Duration(seconds: 1),
+                        message: 'playMode'.tr,
+                        child: MouseRegion(
+                          onEnter: (_){
+                            setState(() {
+                              hoverMode=true;
+                            });
+                          },
+                          onExit: (_){
+                            setState(() {
+                              hoverMode=false;
+                            });
+                          },
+                          child: TweenAnimationBuilder(
+                            tween: ColorTween(end: hoverMode ? c.color6 : c.color5), 
+                            duration: const Duration(milliseconds: 200), 
+                            builder: (_, value, __)=>Obx(()=>
+                              d.playMode.value=='list' ?  Icon(
+                                Icons.repeat_rounded,
+                                size: 18,
+                                color: value,
+                              ) : d.playMode.value=='repeat' ?
+                              Icon(
+                                Icons.repeat_one_rounded,
+                                size: 18,
+                                color: value
+                              ) : Icon(
+                                Icons.shuffle_rounded,
+                                size: 18,
+                                color: value,
                               ),
                             ),
                           ),
