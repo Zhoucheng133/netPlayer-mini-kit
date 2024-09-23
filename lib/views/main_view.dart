@@ -290,6 +290,7 @@ class _MainViewState extends State<MainView> {
                       color: c.color1,
                       // splashRadius: 0,
                       onSelected: (val) async {
+                        d.playMode.value=val;
                         widget.ws.mode(val);
                       },
                       itemBuilder: (BuildContext context)=>[
