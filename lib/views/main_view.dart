@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_miniplay/service/ws_service.dart';
 import 'package:netplayer_miniplay/variables/color_var.dart';
 import 'package:netplayer_miniplay/variables/data_var.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class MainView extends StatefulWidget {
 
@@ -21,6 +22,37 @@ class _MainViewState extends State<MainView> {
   bool hoverSkip=false;
   bool hoverPre=false;
   bool hoverPause=false;
+  late Worker listener;
+
+  bool playedLyric(int index){
+    if(d.lyric.length==1){
+      return true;
+    }
+    return d.line.value-1==index;
+  }
+
+  AutoScrollController controller=AutoScrollController();
+
+  void scrollLyric(){
+    if(d.line.value==0){
+      return;
+    }
+    controller.scrollToIndex(d.line.value-1, preferPosition: AutoScrollPosition.middle);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    listener=ever(d.line, (_){
+      scrollLyric();
+    });
+  }
+
+  @override
+  void dispose() {
+    listener.dispose();
+    super.dispose();
+  }
   
 
   @override
@@ -191,16 +223,42 @@ class _MainViewState extends State<MainView> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Obx(()=>
-                ListView.builder(
-                  itemCount: d.lyric.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return Text(
-                      d.lyric[index]['content'],
-                      textAlign: TextAlign.center,
-                    );
-                  }
-                )
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final double topBottomHeight = constraints.maxHeight / 2;
+                  return ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                    child: Obx(()=>
+                      ListView.builder(
+                        controller: controller,
+                        itemCount: d.lyric.length,
+                        itemBuilder: (BuildContext context, int index){
+                          return Column(
+                            children: [
+                              index==0 ?  SizedBox(height: topBottomHeight-30,) :Container(),
+                              AutoScrollTag(
+                                key: ValueKey(index), 
+                                controller: controller, 
+                                index: index,
+                                child: Text(
+                                  d.lyric[index]['content'],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    height: 2.3,
+                                    color: playedLyric(index) ? c.color5:c.color3,
+                                    fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                  ),
+                                ),
+                              ),
+                              index==d.lyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
+                            ],
+                          );
+                        }
+                      )
+                    ),
+                  );
+                }
               ),
             )
           )
