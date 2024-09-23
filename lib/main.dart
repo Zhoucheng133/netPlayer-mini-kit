@@ -67,7 +67,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.notoSansScTextTheme(),
