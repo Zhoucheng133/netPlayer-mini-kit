@@ -187,6 +187,22 @@ class _MainViewState extends State<MainView> {
                 ),
               ),
             ],
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: Obx(()=>
+                ListView.builder(
+                  itemCount: d.lyric.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Text(
+                      d.lyric[index]['content'],
+                      textAlign: TextAlign.center,
+                    );
+                  }
+                )
+              ),
+            )
           )
         ],
       )
