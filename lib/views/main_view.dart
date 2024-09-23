@@ -4,6 +4,7 @@ import 'package:netplayer_miniplay/service/ws_service.dart';
 import 'package:netplayer_miniplay/variables/color_var.dart';
 import 'package:netplayer_miniplay/variables/data_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:window_manager/window_manager.dart';
 
 class MainView extends StatefulWidget {
 
@@ -58,7 +59,8 @@ class _MainViewState extends State<MainView> {
                 ElevatedButton(
                   onPressed: (){
                     Navigator.pop(context);
-                  }, 
+                    windowManager.close();
+                  },
                   child: const Text('好的')
                 )
               ],
