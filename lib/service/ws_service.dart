@@ -5,32 +5,39 @@ import 'package:get/get.dart';
 import 'package:netplayer_miniplay/variables/data_var.dart';
 
 class WsService{
-  late WebSocket socket;
+  WebSocket? socket;
 
   final d=Get.put(DataVar());
 
-  Future<void> init(String port) async {
-    socket = await WebSocket.connect('ws://127.0.0.1:$port');
-    final command=json.encode({
-      "command": 'get',
-    });
-    socket.add(command);
-    socket.listen((message) {
-      final msg=json.decode(message);
-      d.artist.value=msg['artist'];
-      d.cover.value=msg['cover'];
-      d.line.value=msg['line'];
-      d.lyric.value=msg['fullLyric'];
-      d.title.value=msg['title'];
-      d.isPlay.value=msg['isPlay'];
-    });
+  Future<void> init(String port,) async {
+    try {
+      socket = await WebSocket.connect('ws://127.0.0.1:$port');
+      final command=json.encode({
+        "command": 'get',
+      });
+      socket!.add(command);
+      socket!.listen((message) {
+        final msg=json.decode(message);
+        d.artist.value=msg['artist'];
+        d.cover.value=msg['cover'];
+        d.line.value=msg['line'];
+        d.lyric.value=msg['fullLyric'];
+        d.title.value=msg['title'];
+        d.isPlay.value=msg['isPlay'];
+        d.playMode.value=msg['mode'];
+      });
+    } catch (_) {
+      socket=null;
+    }
   }
 
   toggle(){
     final command=json.encode({
       "command": d.isPlay.value ? 'pause': 'play'
     });
-    socket.add(command);
+    try {
+      socket!.add(command);
+    } catch (_) {}
     d.isPlay.value=!d.isPlay.value;
   }
 
@@ -38,14 +45,18 @@ class WsService{
     final command=json.encode({
       "command": "skip"
     });
-    socket.add(command);
+    try {
+      socket!.add(command);
+    } catch (_) {}
   }
 
   forw(){
     final command=json.encode({
       "command": "forw"
     });
-    socket.add(command);
+    try {
+      socket!.add(command);
+    } catch (_) {}
   }
   
 }

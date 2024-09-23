@@ -54,7 +54,9 @@ class _MainAppState extends State<MainApp> with WindowListener {
 
   Future<void> init() async {
     await windowManager.setResizable(false);
-    ws.init("9098");
+    if(context.mounted){
+      ws.init("9098");
+    }
   }
 
   @override
@@ -69,6 +71,7 @@ class _MainAppState extends State<MainApp> with WindowListener {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.notoSansScTextTheme(),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home:  Obx(()=>
         Scaffold(
