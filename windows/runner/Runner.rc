@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "netplayer_miniplay" "\0"
+            VALUE "CompanyName", "zhouc" "\0"
+            VALUE "FileDescription", "netPlayer mini" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "netplayer_miniplay" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 zhouc. All rights reserved." "\0"
             VALUE "OriginalFilename", "netplayer_miniplay.exe" "\0"
-            VALUE "ProductName", "netplayer_miniplay" "\0"
+            VALUE "ProductName", "netPlayer mini" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
