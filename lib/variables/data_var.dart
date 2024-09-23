@@ -7,4 +7,5 @@ class DataVar extends GetxController{
   RxString title="".obs;
   RxString artist="".obs;
   RxBool isPlay=false.obs;
+  RxString playMode='list'.obs;
 }

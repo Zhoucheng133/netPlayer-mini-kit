@@ -59,4 +59,13 @@ class WsService{
     } catch (_) {}
   }
   
+  mode(String val){
+    final command=json.encode({
+      "command": "mode",
+      "data": val,
+    });
+    try {
+      socket!.add(command);
+    } catch (_) {}
+  }
 }
