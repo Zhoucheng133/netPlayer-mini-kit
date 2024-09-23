@@ -46,6 +46,26 @@ class _MainViewState extends State<MainView> {
     listener=ever(d.line, (_){
       scrollLyric();
     });
+    Future.delayed(const Duration(seconds: 3), (){
+      if(widget.ws.socket==null){
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          showDialog(
+            context: context, builder: (context)=>AlertDialog(
+              title: const Text('连接失败'),
+              content: const Text('请检查netPlayer是否打开ws服务'),
+              actions: [
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  }, 
+                  child: const Text('好的')
+                )
+              ],
+            )
+          );
+        });
+      }
+    });
   }
 
   @override
