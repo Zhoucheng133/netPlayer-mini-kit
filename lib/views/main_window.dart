@@ -46,6 +46,11 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   }
 
   @override
+  void onWindowClose(){
+    ws.close();
+  }
+
+  @override
   void dispose() {
     windowManager.removeListener(this);
     super.dispose();
@@ -193,51 +198,50 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      // TODO 切换歌词
-                      // TODO 下面是测试内容
-                      showDialog(
-                        context: context, 
-                        builder: (context)=>AlertDialog(
-                          title: const Text('参数信息'),
-                          content: Text('${w.port.value} : ${w.lang.value}'),
-                        )
-                      );
-                    },
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      onEnter: (_){
-                        setState(() {
-                          hoverLyric=true;
-                        });
-                      },
-                      onExit: (_){
-                        setState(() {
-                          hoverLyric=false;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        decoration: BoxDecoration(
-                          color: hoverLyric ? const Color.fromARGB(255, 240, 240, 240) : const Color.fromARGB(0, 230, 230, 230)
-                        ),
-                        height: 25,
-                        width: 40,
-                        child: Center(
-                          child: Icon(
-                            Icons.lyrics_rounded,
-                            size: 14,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: (){
+                  //     // TODO 切换歌词
+                  //     // TODO 下面是测试内容
+                  //     showDialog(
+                  //       context: context, 
+                  //       builder: (context)=>AlertDialog(
+                  //         title: const Text('参数信息'),
+                  //         content: Text('${w.port.value} : ${w.lang.value}'),
+                  //       )
+                  //     );
+                  //   },
+                  //   child: MouseRegion(
+                  //     cursor: SystemMouseCursors.click,
+                  //     onEnter: (_){
+                  //       setState(() {
+                  //         hoverLyric=true;
+                  //       });
+                  //     },
+                  //     onExit: (_){
+                  //       setState(() {
+                  //         hoverLyric=false;
+                  //       });
+                  //     },
+                  //     child: AnimatedContainer(
+                  //       duration: const Duration(milliseconds: 200),
+                  //       decoration: BoxDecoration(
+                  //         color: hoverLyric ? const Color.fromARGB(255, 240, 240, 240) : const Color.fromARGB(0, 230, 230, 230)
+                  //       ),
+                  //       height: 25,
+                  //       width: 40,
+                  //       child: Center(
+                  //         child: Icon(
+                  //           Icons.lyrics_rounded,
+                  //           size: 14,
+                  //           color: Colors.grey[700],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   GestureDetector(
                     onTap: (){
                       windowManager.close();
-                      // TODO 关闭
                     },
                     child: MouseRegion(
                       cursor: SystemMouseCursors.click,

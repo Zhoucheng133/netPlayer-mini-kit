@@ -114,7 +114,14 @@ class _MainViewState extends State<MainView> {
                         softWrap: false,
                         style: const TextStyle(
                           fontSize: 15,
-                          fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          // shadows: [
+                          //   Shadow(
+                          //     color: Colors.white,
+                          //     blurRadius: 5,
+                          //   )
+                          // ]
                         ),
                       ),
                       Text(
@@ -122,9 +129,15 @@ class _MainViewState extends State<MainView> {
                         overflow: TextOverflow.fade,
                         maxLines: 1,
                         softWrap: false,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
-                          color: Colors.grey[600]
+                          color: Colors.black,
+                          // shadows: [
+                          //   Shadow(
+                          //     color: Colors.white,
+                          //     blurRadius: 5,
+                          //   )
+                          // ]
                         ),
                       ),
                     ],
