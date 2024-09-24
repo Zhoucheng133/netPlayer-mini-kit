@@ -13,7 +13,7 @@ import 'package:netplayer_miniplay/lang/en_us.dart';
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   final wsVar=Get.put(WsVar());
-  wsVar.port.value=args.isEmpty?"":args[0];
+  wsVar.port.value=args.isEmpty?"9098":args[0];
   wsVar.lang.value=args.length==2?args[1]:"zh_CN";
   await windowManager.ensureInitialized();
   WindowOptions windowOptions = const WindowOptions(
