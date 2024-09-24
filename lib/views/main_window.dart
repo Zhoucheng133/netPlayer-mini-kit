@@ -201,7 +201,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                         context: context, 
                         builder: (context)=>AlertDialog(
                           title: const Text('参数信息'),
-                          content: Text(w.port.value),
+                          content: Text('${w.port.value} : ${w.lang.value}'),
                         )
                       );
                     },
