@@ -8,5 +8,9 @@ const Map<String, String> zhCN = {
   'shuffle': '随机播放',
 
   'showShadow': '显示窗口阴影',
+
+  'connectErr': '连接失败',
+  'connectErrContent': '请检查netPlayer是否打开ws服务',
+  'ok': '好的'
   
 };

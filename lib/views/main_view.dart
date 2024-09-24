@@ -53,15 +53,15 @@ class _MainViewState extends State<MainView> {
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           showDialog(
             context: context, builder: (context)=>AlertDialog(
-              title: const Text('连接失败'),
-              content: const Text('请检查netPlayer是否打开ws服务'),
+              title: Text('connectErr'.tr),
+              content: Text('connectErrContent'.tr),
               actions: [
                 ElevatedButton(
                   onPressed: (){
                     Navigator.pop(context);
                     windowManager.close();
                   },
-                  child: const Text('好的')
+                  child: Text('ok'.tr)
                 )
               ],
             )

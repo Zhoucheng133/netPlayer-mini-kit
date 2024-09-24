@@ -31,13 +31,17 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   void initState() {
     super.initState();
     windowManager.addListener(this);
-    init();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      init(context);
+    });
   }
 
-  Future<void> init() async {
+  Future<void> init(BuildContext context) async {
     await windowManager.setResizable(false);
     if(context.mounted){
       ws.init(w.port.value=='' ? "9098" : w.port.value);
+      var parts = w.lang.split('_');
+      Get.updateLocale(Locale(parts[0], parts[1]));
     }
   }
 
@@ -90,9 +94,9 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                                     }
                                     windowManager.setHasShadow(s.showShadow.value);
                                   },
-                                  child: const MouseRegion(
+                                  child: MouseRegion(
                                     cursor: SystemMouseCursors.click,
-                                    child: Text('显示窗口阴影')
+                                    child: Text('showShadow'.tr)
                                   )
                                 )
                               ],
@@ -192,6 +196,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                   GestureDetector(
                     onTap: (){
                       // TODO 切换歌词
+                      // TODO 下面是测试内容
                       showDialog(
                         context: context, 
                         builder: (context)=>AlertDialog(
