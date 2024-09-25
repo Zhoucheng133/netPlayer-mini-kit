@@ -34,6 +34,7 @@ class WsService{
           d.title.value=msg['title'];
           d.isPlay.value=msg['isPlay'];
           d.playMode.value=msg['mode'];
+          d.nowLyric.value=msg['lyric'];
         }
       });
     }
