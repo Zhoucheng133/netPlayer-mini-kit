@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_miniplay/variables/color_var.dart';
 import 'package:netplayer_miniplay/variables/data_var.dart';
+import 'package:netplayer_miniplay/variables/style_var.dart';
 
 class Lyric extends StatefulWidget {
   const Lyric({super.key});
@@ -14,6 +15,7 @@ class _LyricState extends State<Lyric> {
 
   final d=Get.put(DataVar());
   final c=ColorVar();
+  final s=Get.put(StyleVar());
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class _LyricState extends State<Lyric> {
           child: Text(
             d.nowLyric.value,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: s.fontSize.value.toDouble(),
               color: c.color6,
               fontWeight: FontWeight.bold,
               overflow: TextOverflow.fade,

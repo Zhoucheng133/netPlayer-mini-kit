@@ -45,6 +45,7 @@ class _MainViewState extends State<MainView> {
   @override
   void initState() {
     super.initState();
+    scrollLyric();
     listener=ever(d.line, (_){
       scrollLyric();
     });

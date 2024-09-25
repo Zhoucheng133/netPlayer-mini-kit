@@ -5,4 +5,5 @@ class StyleVar extends GetxController{
   RxBool showShadow=true.obs;
 
   RxBool singleLyric=false.obs;
+  RxInt fontSize=18.obs;
 }

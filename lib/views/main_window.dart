@@ -30,6 +30,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   bool hoverLyric=false;
   bool hoverClose=false;
   bool hoverOpacity=false;
+  bool hoverText=false;
 
   @override
   void initState() {
@@ -73,6 +74,83 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(child: DragToMoveArea(child: Container())),
+                  s.singleLyric.value ? CustomPopup(
+                    content: SizedBox(
+                      width: 120,
+                      height: 50,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: (){
+                              if(s.fontSize.value<=10){
+                                return;
+                              }
+                              s.fontSize.value-=1;
+                            }, 
+                            icon: const Icon(
+                              Icons.remove,
+                              size: 18,
+                            )
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Obx(()=>
+                                Text(
+                                  s.fontSize.value.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 14
+                                  ),
+                                )
+                              )
+                              )
+                          ),
+                          IconButton(
+                            onPressed: (){
+                              if(s.fontSize.value>=25){
+                                return;
+                              }
+                              s.fontSize.value+=1;
+                            }, 
+                            icon: const Icon(
+                              Icons.add,
+                              size: 18,
+                            )
+                          ),
+                        ],
+                      )
+                    ),
+                    child: GestureDetector(
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        onEnter: (_){
+                          setState(() {
+                            hoverText=true;
+                          });
+                        },
+                        onExit: (_){
+                          setState(() {
+                            hoverText=false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          decoration: BoxDecoration(
+                            color: hoverText ? const Color.fromARGB(255, 240, 240, 240) : const Color.fromARGB(0, 230, 230, 230)
+                          ),
+                          height: 25,
+                          width: 40,
+                          child: Center(
+                            child: Icon(
+                              Icons.text_fields,
+                              size: 14,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ) : Container(),
                   CustomPopup(
                     content: SizedBox(
                       width: 150,
@@ -226,11 +304,13 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
                         height: 25,
                         width: 40,
                         child: Center(
-                          child: Icon(
-                            Icons.lyrics_rounded,
-                            size: 14,
-                            color: Colors.grey[700],
-                          ),
+                          child: Obx(()=>
+                            Icon(
+                              Icons.lyrics_rounded,
+                              size: 14,
+                              color: s.singleLyric.value ? Colors.grey[700] : Colors.grey[400],
+                            ),
+                          )
                         ),
                       ),
                     ),
