@@ -23,15 +23,31 @@ class _LyricState extends State<Lyric> {
       child: Obx(()=>
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Text(
-            d.nowLyric.value,
-            style: TextStyle(
-              fontSize: s.fontSize.value.toDouble(),
-              color: c.color6,
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.fade,
-            ),
-            softWrap: false,
+          child: Stack(
+            children: [
+              Text(
+                d.nowLyric.value,
+                style: TextStyle(
+                  fontSize: s.fontSize.value.toDouble(),
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.fade,
+                  foreground: Paint()
+                  ..style=PaintingStyle.stroke
+                  ..strokeWidth=3
+                  ..color=c.color6
+                ),
+                softWrap: false,
+              ),
+              Text(
+                d.nowLyric.value,
+                style: TextStyle(
+                  fontSize: s.fontSize.value.toDouble(),
+                  color: c.color1,
+                  overflow: TextOverflow.fade,
+                ),
+                softWrap: false,
+              ),
+            ],
           ),
         ),
       ),
